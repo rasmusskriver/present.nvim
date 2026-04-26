@@ -18,7 +18,16 @@ local parse_slides = function (lines)
 	local seperator = "^#"
 	for _, line in ipairs(lines) do
 		print(line, "find:", line:find(seperator), "|")
+		if line:find(seperator) then
+			if #current_slide > 0 then
+			table.insert(slides.slides, current_slide)
+			end
+
+			current_slide = {}
+		end
+	table.insert(current_slide, line)
 	end
+	table.insert(slides.slides, current_slide)
 
 	return slides
 end
